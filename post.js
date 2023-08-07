@@ -1,20 +1,30 @@
 const axios = require("axios");
 const { expect } = require("chai");
 
-describe("delete API Request Tests", () => {
+describe("Post API Request Tests", () => {
     it("should be able get user list", async () => {
         try {
-         const authToken = 'MnJ4ekdXRkJON2YxVVZmbXRERks6MDBlbXVtYmE0NA==';
-        const headers = {
+            const authToken = 'MnJ4ekdXRkJON2YxVVZmbXRERks6MDBlbXVtYmE0NA==';
+      const headers = {
         Authorization: `Bearer ${authToken}`,
       };
-        const res = await axios.delete("https://emumba.freshdesk.com/api/v2/agents/151039073455",
+
+      const newUser = {
+        "available": false,
+        "occasional": true,
+        "id": 151038392744,
+        "ticket_scope": 11,
+      };
+
+      const res = await axios.post(
+        "https://emumba.freshdesk.com/api/v2/agents/",
+        newUser,
         {
           headers: headers,
         }
       );
             console.log(res.data); 
-            expect(res.status).to.equal(204); 
+            expect(res.status).to.equal(201); 
 
         } catch (error) {
             console.error('Error:', error.message);
